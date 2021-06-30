@@ -1,0 +1,79 @@
+{
+  "id": "1730657",
+  "name": "olmap",
+  "font_family": "olmapff",
+  "css_prefix_text": "olmap-",
+  "description": "open layers map component",
+  "glyphs": [
+    {
+      "icon_id": "13866240",
+      "name": "删除_画板 1",
+      "font_class": "trash",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "13865839",
+      "name": "测距_画板 1",
+      "font_class": "measure-rule",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "1252749",
+      "name": "手",
+      "font_class": "hand",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "13741193",
+      "name": "图层",
+      "font_class": "layer",
+      "unicode": "e748",
+      "unicode_decimal": 59208
+    },
+    {
+      "icon_id": "2330431",
+      "name": "复位",
+      "font_class": "fit-extent",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "8533665",
+      "name": "地球",
+      "font_class": "earth",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "10418066",
+      "name": "测面",
+      "font_class": "measure-area",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "13421083",
+      "name": "清除",
+      "font_class": "clear",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "7255850",
+      "name": "zoom in",
+      "font_class": "zoomin",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "7255932",
+      "name": "zoom out",
+      "font_class": "zoomout",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    }
+  ]
+}
