@@ -1,8 +1,9 @@
 <template>
   <div :class="$style.home" class=" bg-gray-200 m-auto flex flex-col p-3 space-y-4">
-    <div class=" bg-white w-full h-60 p-3 rounded-lg" >{{value}}
+    <div class=" bg-white w-full h-96 p-3 rounded-lg" >
       <Simplebar>
         <el-table
+          v-show="flag"
           :data="tableData"
           style="width: 100%">
           <el-table-column label="序号" type="index" align="center">
@@ -28,9 +29,24 @@
               type="text"
               @click="handleDel(scope.row)"
               >删除</el-button>
+              <el-button
+              type="text"
+              >查看</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <!-- <el-pagination
+          v-show="flag"
+          background
+          style="margin:0 5px;"
+          prev-text="上一页"
+          next-text="下一页"
+          layout="prev, pager, next"
+          :current-page.sync="pagination.page"
+          :page-size.sync="pagination.size"
+          :total="pagination.total">
+        </el-pagination> -->
+        <Vtour v-show='!flag' style="width:552px;height:332px"></Vtour>
       </Simplebar>
     </div>
     <div class=" w-full h-28 bg-gray-100 p-3 rounded-lg space-x-3">
@@ -40,25 +56,43 @@
       <button @click="handleQuery" class=" rounded-md w-16 h-8 text-white bg-green-300 hover:bg-green-200 focus:bg-green-700">
       查询
       </button>
+      <button @click="handleSwitch" class=" rounded-md w-16 h-8 text-white bg-green-300 hover:bg-green-200 focus:bg-green-700">
+      切换
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import Vtour from '@/components/krpano/Vtour'
+import { createPagination } from 'vhh/mixins/pageable'
+import qs from 'qs'
 export default {
   name: 'Home',
+  mixins: [createPagination({size: 5})],
   components: {
+    Vtour
   },
   data() {
     return {
+      flag:true,
       value:'',
       tableData:[]
     }
   },
   methods: {
     async handleQuery(){
-      let {data} = await this.$request.get('/query')
+      let params = {
+        pagenum: this.pagination.page,
+        pagesize: this.pagination.size,
+      }
+
+      let { data,pageMetadata } = await this.$request.post('/query',qs.stringify(params))
+      this.setPagination(pageMetadata)
       this.tableData = data
+    },
+    async onPaginate() {
+      await this.handleQuery()
     },
     async handleAdd(){
       let params = {
@@ -87,13 +121,16 @@ export default {
       }
       this.handleQuery()
     },
+    async handleSwitch(){
+      this.flag = !this.flag
+    },
   },
 }
 </script>
 <style lang="postcss" module>
 .home{
   width: 600px;
-  height: 400px;
+  height: 500px;
   margin-top: 50px;
   border-radius: 10px;
   background: #f3f2f2;

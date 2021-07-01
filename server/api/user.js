@@ -3,11 +3,19 @@ const router = express.Router()
 const User = require('../entity/user')
 
 // 查询
-router.get('/query', (req, res, next) => {
+router.post('/query', (req, res, next) => {
   User.find().then(users => {
-    res.send(users)
+    res.json({
+      success: true,
+      message: '查询成功',
+      total:10,
+      data:users
+    })
   }).catch(err => {
-    console.log(err);
+    res.json({
+      success: false,
+      message: '查询失败',
+    })
   })
 })
 // 新增

@@ -1,0 +1,67 @@
+﻿<krpano>
+
+	<!-- Plugin for showing pano position -->
+
+
+	<!-- update pano position and fov -->
+	<action name="show_pos">
+		copy(pano_pan,view.hlookat);
+		mod(pano_pan,360);
+		roundval(pano_pan,3);
+		if(pano_pan GT 180, set(pano_pan,calc(pano_pan-360)));
+		if(pano_pan LT -180, set(pano_pan,calc(pano_pan+360)));
+		copy(pano_tilt,view.vlookat);
+		roundval(pano_tilt,3);
+		copy(pano_fov,view.fov);
+		roundval(pano_fov,3);
+		txtadd(pano_msg,'左右: ',get(pano_pan),'[br]上下: ',get(pano_tilt),'[br]视场: ',get(pano_fov));
+		set(layer[pano_pos].html,get(pano_msg));
+	</action>
+
+	<layer name="pano_pos"
+		url="textfield.swf"
+		align="lefttop" x="10" y="70"
+		width="110" height="75"
+		html="pano_pos"
+		css="font-family:Arial; font-size:16px; color:#000000"
+		autowidth="false"
+		autoheight="false"
+		padding="5"
+		wordwrap="false"
+		backgroundcolor="0xFFFFFF"
+		backgroundalpha="0.6"
+		border="true"
+		bordercolor="0x000000"
+		borderalpha="1.0"
+		borderwidth="2.0"
+		onautosized=""
+		keep="true"
+	/>
+
+	<layer name="pano_center_1"
+
+				keep="true"
+				type="container"
+				enabled="false"
+				bgalpha="1"
+				bgcolor="0xFFFFFF"
+				width="25"
+				height="1"
+				align="center"
+		
+	/>
+
+	<layer name="pano_center_2"
+
+				keep="true"
+				type="container"
+				enabled="false"
+				bgalpha="1"
+				bgcolor="0xFFFFFF"
+				width="1"
+				height="25"
+				align="center"
+		
+	/>
+
+</krpano>
