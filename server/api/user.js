@@ -1,9 +1,16 @@
+/*
+ * @Date: 2021-06-29 18:12:25
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-02 08:25:38
+ * @FilePath: \vuetemplate\server\api\user.js
+ */
 const express = require('express')
 const router = express.Router()
 const User = require('../entity/user')
 
 // 查询
-router.post('/query', (req, res, next) => {
+router.get('/query', (req, res, next) => {
+  let params = req.query
   User.find().then(users => {
     res.json({
       success: true,

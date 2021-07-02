@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-06-29 14:35:34
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-01 19:50:44
+ * @FilePath: \vuetemplate\src\modules\request.js
+ */
 import axios from 'axios'
 import responseFormatter from 'vhh/modules/request/responseFormatter'
 const instance = axios.create({

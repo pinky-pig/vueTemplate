@@ -29,9 +29,6 @@
               type="text"
               @click="handleDel(scope.row)"
               >删除</el-button>
-              <el-button
-              type="text"
-              >查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -86,8 +83,9 @@ export default {
         pagenum: this.pagination.page,
         pagesize: this.pagination.size,
       }
-
-      let { data,pageMetadata } = await this.$request.post('/query',qs.stringify(params))
+      let { data,pageMetadata } = await this.$request.get('/query',{
+        params
+      })
       this.setPagination(pageMetadata)
       this.tableData = data
     },

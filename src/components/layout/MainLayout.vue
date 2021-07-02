@@ -1,16 +1,19 @@
+<!--
+ * @Date: 2021-06-30 15:35:24
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-01 16:30:40
+ * @FilePath: \vuetemplate\src\components\layout\MainLayout.vue
+-->
 <template>
-<Stack :class="$style.mainLayout">
-  <StackItem>
-    <TheHeader></TheHeader>
-  </StackItem>
-  <StackItem flexible>
-    <main class="w-full h-full">
-      <slot></slot>
-    </main>
-  </StackItem>
-  <StackItem>
-    <!-- <TheFooter></TheFooter> -->
-  </StackItem>
+<Stack :class="$style.mainLayout"  class=" flex flex-row">
+    <StackItem>
+      <TheLeft></TheLeft>
+    </StackItem>
+    <StackItem flexible>
+      <main class="w-full h-full">
+        <slot></slot>
+      </main>
+    </StackItem>
 </Stack>
 </template>
 
@@ -21,6 +24,5 @@ export default {
 
 <style lang="postcss" module>
 .mainLayout {
-  min-width: 1200px;
 }
 </style>

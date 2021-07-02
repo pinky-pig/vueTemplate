@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-06-23 21:00:37
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-02 08:26:42
+ * @FilePath: \vuetemplate\server\app.js
+ */
 var express = require('express')
 var app = express()
 require('./db')
