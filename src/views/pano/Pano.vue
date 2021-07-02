@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-07-01 17:16:01
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-02 17:03:40
+ * @LastEditTime: 2021-07-02 17:39:42
  * @FilePath: \vuetemplate\src\views\pano\Pano.vue
 -->
 <template>
