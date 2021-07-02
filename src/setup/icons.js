@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-06-03 09:18:29
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-02 15:48:48
+ * @LastEditTime: 2021-07-02 16:04:54
  * @FilePath: \vuetemplate\src\setup\icons.js
  */
 import Vue from 'vue'
@@ -19,6 +19,8 @@ import 'vue-awesome/icons/align-left'
 import 'vue-awesome/icons/edit'
 import 'vue-awesome/icons/eye-slash'
 import 'vue-awesome/icons/bars'
+import 'vue-awesome/icons/map-marked-alt'
+import 'vue-awesome/icons/map-marker'
 
 // https://fontawesome.com/icons
 Vue.component('v-icon', Icon)
