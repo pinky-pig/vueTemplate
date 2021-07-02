@@ -1,3 +1,9 @@
+<!--
+ * @Date: 2021-06-30 16:41:47
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-02 13:46:25
+ * @FilePath: \vuetemplate\src\components\krpano\Vtour.vue
+-->
 <template>
   <div id="pano" class=" w-full h-full">
     <slot></slot>
@@ -37,28 +43,24 @@ export default {
     return {
       //krpano对象
       krpano: document.querySelector('#krpanoSWFObject'),
-      // xml: 'http://www.jshhxx.cn/hh-pano/QJ_ChongQingWuLongHuangYing/QJ_WL_02/tour_pic1.xml',
-      xml:"/krpano/tour.xml",
+      // xml:"/krpano/tour.xml",
+      xml:'http://127.0.0.1:8998/pano/tour.xml'
     }
   },
   async mounted() {
-
     await loadScript(krpanoScriptUrl).then(() => window.embedpano )
-
-    // 在页面加载全景
-    var el = document.createElement('script')
-    el.type = 'text/javascript'
-    el.async = true
-    el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${this.xml}", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
-    // el.text = `embedpano({swf:"/krpano/tour.swf", xml:"/krpano/tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
-    let panoDom = document.getElementById('pano')
-    panoDom.appendChild(el)
-
     this.onready()
 },
   methods:{
     onready() {
-
+      // 在页面加载全景
+      var el = document.createElement('script')
+      el.type = 'text/javascript'
+      el.async = true
+      el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${this.xml}", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
+      // el.text = `embedpano({swf:"/krpano/tour.swf", xml:"/krpano/tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
+      let panoDom = document.getElementById('pano')
+      panoDom.appendChild(el)
     }
   }
 }

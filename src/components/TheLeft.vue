@@ -1,14 +1,14 @@
 <!--
  * @Date: 2021-07-01 13:53:51
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-01 18:39:13
+ * @LastEditTime: 2021-07-02 13:54:41
  * @FilePath: \vuetemplate\src\components\TheLeft.vue
 -->
 <template>
   <div :class="$style.theLeft" class="h-full relative">
-    <div class=" bg-primary absolute bottom-0 z-10" style="width:220px;">
+    <!-- <div class=" bg-primary absolute bottom-2 z-10 left-14" style="width:100px;height:100px">
       <img src="@/assets/cat.webp" alt="">
-    </div>
+    </div> -->
     <el-menu
       default-active="1-4-1"
       class="el-menu-vertical-demo"
