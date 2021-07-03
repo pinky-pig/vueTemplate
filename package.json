@@ -9,6 +9,7 @@
   "dependencies": {
     "@kangc/v-md-editor": "^1.7.6",
     "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9",
     "axios": "^0.21.1",

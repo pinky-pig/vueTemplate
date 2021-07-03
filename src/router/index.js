@@ -1,8 +1,8 @@
 /*
  * @Date: 2021-05-26 11:17:34
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-01 19:00:40
- * @FilePath: \vuetemplate\src\router\index.js
+ * @LastEditTime: 2021-07-03 17:14:14
+ * @FilePath: \vueTemplate\src\router\index.js
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -26,7 +26,8 @@ const routes = [
     path: '/',
     name: 'Home',
     component: RouterLayout,
-    children: [{
+    children: [
+      {
         path: '/',
         component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
       },
@@ -43,7 +44,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "about" */ '../views/Intro.vue')
       },
     ]
-  }
+  },
+  {
+    path: '/login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+  },
 ]
 
 const router = new VueRouter({
