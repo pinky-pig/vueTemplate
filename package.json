@@ -22,6 +22,7 @@
     "postcss": "^7",
     "qs": "^6.10.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+    "three": "^0.130.0",
     "vue": "^2.6.11",
     "vue-awesome": "^4.3.1",
     "vue-router": "^3.2.0",

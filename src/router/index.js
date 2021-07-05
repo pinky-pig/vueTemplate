@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-05-26 11:17:34
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-01 19:00:40
+ * @LastEditTime: 2021-07-05 09:32:26
  * @FilePath: \vuetemplate\src\router\index.js
  */
 import Vue from 'vue'
@@ -26,8 +26,13 @@ const routes = [
     path: '/',
     name: 'Home',
     component: RouterLayout,
-    children: [{
+    children: [
+      {
         path: '/',
+        component: () => import('@/views/Three')
+      },
+      {
+        path: '/Home',
         component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
       },
       {
@@ -42,6 +47,7 @@ const routes = [
         path: '/intro',
         component: () => import(/* webpackChunkName: "about" */ '../views/Intro.vue')
       },
+
     ]
   }
 ]
