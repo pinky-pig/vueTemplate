@@ -18,7 +18,7 @@ module.exports = {
       whitelistPatterns: [ /el-.+$/, /-(leave|enter|appear)(|-(to|from|active))$/, /^(?!(|.*?:)cursor-move).+-move$/, /^router-link(|-exact)-active$/ ],
     }
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class' or false
   theme: {
     extend: {
       colors: {
@@ -36,7 +36,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['active'],
+    },
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),

@@ -1,8 +1,13 @@
 /*
  * @Date: 2021-05-26 11:17:34
  * @LastEditors: wangwenbo
+<<<<<<< HEAD
  * @LastEditTime: 2021-07-03 17:14:14
  * @FilePath: \vueTemplate\src\router\index.js
+=======
+ * @LastEditTime: 2021-07-05 15:28:58
+ * @FilePath: \vuetemplate\src\router\index.js
+>>>>>>> 3d50f26081d3d05fb2b9e306768561f5a1d6125c
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -29,6 +34,14 @@ const routes = [
     children: [
       {
         path: '/',
+        component: () => import('@/views/Canvas')
+      },
+      {
+        path: '/Three',
+        component: () => import('@/views/Three')
+      },
+      {
+        path: '/Home',
         component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
       },
       {
@@ -43,6 +56,11 @@ const routes = [
         path: '/intro',
         component: () => import(/* webpackChunkName: "about" */ '../views/Intro.vue')
       },
+      {
+        path: '/map',
+        component: () => import(/* webpackChunkName: "about" */ '../views/arcgis/index.vue')
+      },
+
     ]
   },
   {
