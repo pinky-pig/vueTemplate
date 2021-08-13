@@ -5,8 +5,9 @@
       <span class="esri-icon-polyline"></span>
     </div>
 
-    <div class="bg-white opacity-90 rounded-md shadow-lg absolute" style="bottom:15px;width:350px;height:45px;right:calc(50% - 175px)" id="toolbar">
-
+    <div class=" p-2 flex flex-row items-center justify-between bg-white opacity-90 rounded-md shadow-lg absolute" style="bottom:15px;width:350px;height:45px;right:calc(50% - 175px)" id="toolbar">
+      <v-icon name="pen" @click="drawPoint" scale="1.4" class=" text-black"></v-icon>
+      <v-icon name="pen" @click="drawLine" scale="1.4" class=" text-black"></v-icon>
     </div>
 
   </div>
@@ -265,17 +266,18 @@ export default {
       })
     },
 
-    drawLine(){
+    // 绘制点
+    drawPoint(){
       loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
 
-        const graphicsLayer = new GraphicsLayer({
+        const drawPointLayer = new GraphicsLayer({
           id: 'pointGraphicLayer',
           elevationInfo: {
             mode: 'on-the-ground',
           },
         });
 
-        this.mapView.map.add(graphicsLayer);
+        this.mapView.map.add(drawPointLayer);
 
 
         // 2、设置点要素的符号
@@ -294,11 +296,12 @@ export default {
         var sketchViewModel = new SketchViewModel({
           updateOnGraphicClick: false,
           view: this.mapView,
-          layer: graphicsLayer,
+          layer: drawPointLayer,
           pointSymbol,
         });
 
         // 3、激活点要素绘制工具
+        // Possible Values:"point"|"multipoint"|"polyline"|"polygon"|"circle"|"rectangle"|"move"|"transform"|"reshape"
         sketchViewModel.create('point');
 
         // 4、绘制，并且监听绘制结束的事件
@@ -307,11 +310,59 @@ export default {
             geometry: event.geometry,
             symbol: sketchViewModel.graphic.symbol,
           });
-          graphicsLayer.add(graphic);
+          drawPointLayer.add(graphic);
         });
         sketchViewModel.on('create', function (event) {
           if (event.state === 'complete') {
-            console.log(graphicsLayer);
+            console.log(drawPointLayer);
+            console.log(event);
+          }
+        });
+
+
+      })
+    },
+    // 绘制线条
+    drawLine(){
+      loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
+        const drawLineLayer = new GraphicsLayer({
+          id: 'pointGraphicLayer',
+          elevationInfo: {
+            mode: 'on-the-ground',
+          },
+        });
+
+        this.mapView.map.add(drawLineLayer);
+
+        // 2、设置点要素的符号
+        const polylineSymbol = {
+          type: "simple-line",
+          color: [130, 130, 130],
+          width: 2
+        }
+
+        // 1、实例化SketchViewModel实例
+        var sketchViewModel = new SketchViewModel({
+          updateOnGraphicClick: false,
+          view: this.mapView,
+          layer: drawLineLayer,
+          polylineSymbol,
+        });
+
+        // 3、激活点要素绘制工具
+        sketchViewModel.create('polyline');
+
+        // 4、绘制，并且监听绘制结束的事件
+        sketchViewModel.on('create-complete', function (event) {
+          const graphic = new Graphic({
+            geometry: event.geometry,
+            symbol: sketchViewModel.graphic.symbol,
+          });
+          drawLineLayer.add(graphic);
+        });
+        sketchViewModel.on('create', function (event) {
+          if (event.state === 'complete') {
+            console.log(drawLineLayer);
             console.log(event);
           }
         });
