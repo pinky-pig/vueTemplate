@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-05-26 11:17:34
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-05 09:32:26
+ * @LastEditTime: 2021-07-05 15:28:58
  * @FilePath: \vuetemplate\src\router\index.js
  */
 import Vue from 'vue'
@@ -29,6 +29,10 @@ const routes = [
     children: [
       {
         path: '/',
+        component: () => import('@/views/Canvas')
+      },
+      {
+        path: '/Three',
         component: () => import('@/views/Three')
       },
       {
@@ -46,6 +50,10 @@ const routes = [
       {
         path: '/intro',
         component: () => import(/* webpackChunkName: "about" */ '../views/Intro.vue')
+      },
+      {
+        path: '/map',
+        component: () => import(/* webpackChunkName: "about" */ '../views/arcgis/index.vue')
       },
 
     ]

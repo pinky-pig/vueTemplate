@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-06-30 16:41:47
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-02 13:46:25
+ * @LastEditTime: 2021-07-05 16:18:07
  * @FilePath: \vuetemplate\src\components\krpano\Vtour.vue
 -->
 <template>
@@ -43,8 +43,8 @@ export default {
     return {
       //krpano对象
       krpano: document.querySelector('#krpanoSWFObject'),
-      // xml:"/krpano/tour.xml",
-      xml:'http://127.0.0.1:8998/pano/tour.xml'
+      xml:"/krpano/tour.xml",
+      // xml:'http://127.0.0.1:8998/pano/tour.xml'
     }
   },
   async mounted() {
