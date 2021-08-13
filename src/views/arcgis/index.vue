@@ -1,13 +1,27 @@
 <template>
   <div :class="$style.map" id="viewDiv">
 
-    <div @click="drawLine" id="line-button" class="esri-widget esri-widget--button esri-interactive" title="Draw polyline">
+    <!-- <div @click="drawLine" id="line-button" class="esri-widget esri-widget--button esri-interactive" title="Draw polyline">
       <span class="esri-icon-polyline"></span>
-    </div>
+    </div> -->
 
-    <div class=" p-2 flex flex-row items-center justify-between bg-white opacity-90 rounded-md shadow-lg absolute" style="bottom:15px;width:350px;height:45px;right:calc(50% - 175px)" id="toolbar">
-      <v-icon name="pen" @click="drawPoint" scale="1.4" class=" text-black"></v-icon>
-      <v-icon name="pen" @click="drawLine" scale="1.4" class=" text-black"></v-icon>
+    <div class=" p-2 flex flex-row items-center justify-between bg-white opacity-90 rounded-md shadow-lg absolute" style="bottom:15px;width:350px;height:45px;right:calc(50% - 175px)">
+      <div @click="drawPoint" :class="$style.toolButton" :style="{background:selectTool===0?'rgba(0,0,0,0.8)':'',color:selectTool===0?'white':''}">
+        <Icon name="zuoshang101"  :size="19"></Icon>
+      </div>
+      <div @click="drawPoint" :class="$style.toolButton" :style="{background:selectTool===1?'rgba(0,0,0,0.8)':'',color:selectTool===1?'white':''}">
+        <Icon name="LABEL"  :size="24"></Icon>
+      </div>
+      <div @click="drawLine" :class="$style.toolButton" :style="{background:selectTool===2?'rgba(0,0,0,0.8)':'',color:selectTool===2?'white':''}">
+        <Icon name="GRAPHIC" :size="24"></Icon>
+      </div>
+      <div @click="drawPolygon" :class="$style.toolButton" :style="{background:selectTool===3?'rgba(0,0,0,0.8)':'',color:selectTool===3?'white':''}">
+        <Icon name="SELECTION" :size="24"></Icon>
+      </div>
+      <!-- 橡皮擦 -->
+      <div @click="drawClear" class="  bg-red-200"  :class="$style.toolButton">
+        <Icon name="icon-test"  :size="24"></Icon>
+      </div>
     </div>
 
   </div>
@@ -25,6 +39,9 @@ export default {
       wkid: 4490,
       bookmarks_list: [],
       sketchLayer:"",
+      // -1就是没选中 1、2、3分别代表选中工具
+      selectTool:-1,
+      drawLayer:undefined,
     };
   },
   mounted() {
@@ -207,9 +224,9 @@ export default {
                 creationMode: "single",
                 availableCreateTools:[ "point","polyline","polygon", "rectangle", "circle"]
             });
-            this.mapView.ui.add(this.sketch, "top-right");
+            // this.mapView.ui.add(this.sketch, "top-right");
 
-            this.mapView.ui.add("line-button", "top-left");
+            // this.mapView.ui.add("line-button", "top-left");
 
             let _this = this
             // 监听地图的点击事件
@@ -227,6 +244,19 @@ export default {
               console.log('scale',value);
               console.log('map的zoom级别',_this.mapView.zoom);
             });
+
+
+
+            // 绘制图层
+            this.drawLayer = new GraphicsLayer({
+              id: 'drawGraphicLayer',
+              elevationInfo: {
+                mode: 'on-the-ground',
+              },
+            });
+
+            this.mapView.map.add(this.drawLayer);
+
 
 
           }
@@ -268,16 +298,17 @@ export default {
 
     // 绘制点
     drawPoint(){
+      let _this = this
       loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
 
-        const drawPointLayer = new GraphicsLayer({
-          id: 'pointGraphicLayer',
-          elevationInfo: {
-            mode: 'on-the-ground',
-          },
-        });
+        // const drawPointLayer = new GraphicsLayer({
+        //   id: 'pointGraphicLayer',
+        //   elevationInfo: {
+        //     mode: 'on-the-ground',
+        //   },
+        // });
 
-        this.mapView.map.add(drawPointLayer);
+        // this.mapView.map.add(drawPointLayer);
 
 
         // 2、设置点要素的符号
@@ -296,7 +327,7 @@ export default {
         var sketchViewModel = new SketchViewModel({
           updateOnGraphicClick: false,
           view: this.mapView,
-          layer: drawPointLayer,
+          layer: this.drawLayer,
           pointSymbol,
         });
 
@@ -304,18 +335,22 @@ export default {
         // Possible Values:"point"|"multipoint"|"polyline"|"polygon"|"circle"|"rectangle"|"move"|"transform"|"reshape"
         sketchViewModel.create('point');
 
+        this.selectTool = 1
+
         // 4、绘制，并且监听绘制结束的事件
         sketchViewModel.on('create-complete', function (event) {
           const graphic = new Graphic({
             geometry: event.geometry,
             symbol: sketchViewModel.graphic.symbol,
           });
-          drawPointLayer.add(graphic);
+          this.drawLayer.add(graphic);
         });
         sketchViewModel.on('create', function (event) {
           if (event.state === 'complete') {
-            console.log(drawPointLayer);
+            console.log(this.drawLayer);
             console.log(event);
+
+            _this.selectTool = -1
           }
         });
 
@@ -324,15 +359,9 @@ export default {
     },
     // 绘制线条
     drawLine(){
-      loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
-        const drawLineLayer = new GraphicsLayer({
-          id: 'pointGraphicLayer',
-          elevationInfo: {
-            mode: 'on-the-ground',
-          },
-        });
+      let _this = this
 
-        this.mapView.map.add(drawLineLayer);
+      loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
 
         // 2、设置点要素的符号
         const polylineSymbol = {
@@ -345,12 +374,15 @@ export default {
         var sketchViewModel = new SketchViewModel({
           updateOnGraphicClick: false,
           view: this.mapView,
-          layer: drawLineLayer,
+          layer: this.drawLayer,
           polylineSymbol,
         });
 
         // 3、激活点要素绘制工具
         sketchViewModel.create('polyline');
+
+        // 工具条背景色变色
+        this.selectTool = 2
 
         // 4、绘制，并且监听绘制结束的事件
         sketchViewModel.on('create-complete', function (event) {
@@ -358,18 +390,75 @@ export default {
             geometry: event.geometry,
             symbol: sketchViewModel.graphic.symbol,
           });
-          drawLineLayer.add(graphic);
+          this.drawLayer.add(graphic);
         });
         sketchViewModel.on('create', function (event) {
           if (event.state === 'complete') {
-            console.log(drawLineLayer);
+            console.log(this.drawLayer);
             console.log(event);
+            _this.selectTool = -1
+            console.log(this.selectTool);
           }
         });
 
 
       })
     },
+
+    // 绘制多边形
+    drawPolygon(){
+      let _this = this
+
+      loadModules(["esri/layers/GraphicsLayer","esri/widgets/Sketch/SketchViewModel"]).then(([GraphicsLayer,SketchViewModel])=>{
+
+        // 2、设置点要素的符号
+        const polygonSymbol = {
+          type: "simple-fill",
+          color: [150, 150, 150, 0.2],
+          outline: {
+            color: [50, 50, 50],
+            width: 2
+          }
+        }
+
+        // 1、实例化SketchViewModel实例
+        var sketchViewModel = new SketchViewModel({
+          updateOnGraphicClick: false,
+          view: this.mapView,
+          layer: this.drawLayer,
+          polygonSymbol,
+        });
+
+        // 3、激活点要素绘制工具
+        sketchViewModel.create('polygon');
+
+        // 工具条背景色变色
+        this.selectTool = 3
+
+        // 4、绘制，并且监听绘制结束的事件
+        sketchViewModel.on('create-complete', function (event) {
+          const graphic = new Graphic({
+            geometry: event.geometry,
+            symbol: sketchViewModel.graphic.symbol,
+          });
+          this.drawLayer.add(graphic);
+        });
+        sketchViewModel.on('create', function (event) {
+          if (event.state === 'complete') {
+            console.log(this.drawLayer);
+            console.log(event);
+            _this.selectTool = -1
+          }
+        });
+
+
+      })
+    },
+
+    drawClear(){
+      //
+      this.drawLayer.removeAll()
+    }
 
 
 
@@ -389,5 +478,10 @@ export default {
 </style>
 <style lang="postcss" module>
 .map {
+  .toolButton{
+    @apply rounded-md cursor-pointer text-black hover:bg-gray-200 flex flex-row items-center justify-center;
+    width: 30px;
+    height:30px;
+  }
 }
 </style>
