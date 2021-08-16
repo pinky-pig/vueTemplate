@@ -1,3 +1,10 @@
+<!--
+ * @Date: 2021-08-14 03:38:33
+ * @LastEditors: 王文博
+ * @Content:
+ * @LastEditTime: 2021-08-14 03:39:37
+ * @FilePath: \vueTemplate\github push.md
+-->
 ## git提交代码
 
 
@@ -15,6 +22,8 @@ clip < ~/.ssh/id_rsa.pub
 ssh -T git@github.com
 5.报错执行
 git config --global http.sslVerify "false"
+
+git remote set-url origin git@github.com:pinky-pig/vueTemplate.git
 6.查看本地提交记录
 git status
 7.提交

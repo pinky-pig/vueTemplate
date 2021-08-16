@@ -1,13 +1,13 @@
 <!--
  * @Date: 2021-07-03 14:41:58
- * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-04 00:50:46
+ * @LastEditors: 王文博
+ * @LastEditTime: 2021-08-14 04:01:10
  * @FilePath: \vueTemplate\src\views\Login.vue
 -->
 <template>
   <div :class="$style.Login" class=" w-full h-full bg-primary-light-3 flex justify-center items-center">
     <!-- main登录页面 -->
-    <div :class="$style.main" class=" w-4/5 h-4/5 flex flex-row overflow-hidden">
+    <div :class="$style.main">
       <!-- 左侧全景图 -->
       <div class=" bg-gray-300 flex-auto" >
         <Vtour></Vtour>
@@ -111,6 +111,7 @@ export default {
 <style lang="postcss" module>
 .Login{
   .main{
+    @apply w-4/5 h-4/5 flex flex-row overflow-hidden;
     font-family: VT324;
     border-radius: 10px;
     background: #948BB3;

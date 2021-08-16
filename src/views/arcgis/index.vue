@@ -259,6 +259,7 @@ export default {
 
 
 
+
           }
         )
         .catch((err) => {
@@ -330,6 +331,7 @@ export default {
           layer: this.drawLayer,
           pointSymbol,
         });
+        console.log(sketchViewModel);
 
         // 3、激活点要素绘制工具
         // Possible Values:"point"|"multipoint"|"polyline"|"polygon"|"circle"|"rectangle"|"move"|"transform"|"reshape"
