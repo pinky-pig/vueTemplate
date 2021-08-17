@@ -70,7 +70,8 @@ export default {
         "esri/core/watchUtils",
         "esri/Graphic",
         "esri/views/draw/Draw",
-        "esri/widgets/Sketch"
+        "esri/widgets/Sketch",
+        "esri/tasks/support/Query"
       ])
         .then(
           ([
@@ -94,6 +95,7 @@ export default {
             Graphic,
             Draw,
             Sketch,
+            Query
           ]) => {
 
             this.map = new Map({});
@@ -195,7 +197,7 @@ export default {
             this.map.add(this.vectorAnnoLayer, 1);
 
 
-            // this.mapView.ui.remove('zoom')//清除放大缩小按钮
+            this.mapView.ui.remove('zoom')//清除放大缩小按钮
 
             this.mapView.ui.remove('attribution')//清楚底部powered by ESRI
 
@@ -229,20 +231,39 @@ export default {
             // this.mapView.ui.add("line-button", "top-left");
 
             let _this = this
-            // 监听地图的点击事件
             this.mapView.on('click',(value)=>{
               console.log('click',value);
-              let center = new Point(118.32952090939195, 32.290290778854995, { wkid: this.wkid })
-              _this.mapView.goTo({ center: center });
-            })
-            this.mapView.on('double-click',(value)=>{
-              console.log('绘制的元素',this.sketchLayer);
+              // let center = new Point(118.32952090939195, 32.290290778854995, { wkid: this.wkid })
+              // _this.mapView.goTo({ center: center });
 
+
+
+            })
+
+
+            this.mapView.on('double-click',(value)=>{
+              console.log(value);
             })
             // 监听地图的放大缩小层级
             this.mapView.watch("scale", function (value) {
-              console.log('scale',value);
-              console.log('map的zoom级别',_this.mapView.zoom);
+              // console.log('scale',value);
+              // console.log('map的zoom级别',_this.mapView.zoom);
+
+              // let featureLayer = new FeatureLayer()
+              // this.map.add(featureLayer)
+
+              // let query = featureLayer.createQuery();
+
+              // query.geometry = value.mapPoint;  // the point location of the pointer
+
+              // featureLayer.queryFeatures(query)
+              //   .then(function(response){
+              //     console.log(response);
+              //     // returns a feature set with features containing the
+              //     // POPULATION attribute and each feature's geometry
+              //   });
+
+
             });
 
 
