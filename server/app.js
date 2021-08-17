@@ -1,14 +1,15 @@
 /*
  * @Date: 2021-06-23 21:00:37
  * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-02 10:45:34
- * @FilePath: \vuetemplate\server\app.js
+ * @LastEditTime: 2021-07-04 00:26:30
+ * @FilePath: \vueTemplate\server\app.js
  */
 var express = require('express')
 var app = express()
 
 const userRoutes = require('./api/user')
 const panoRoutes = require('./api/pano')
+const loginRoutes = require('./api/login')
 
 require('./db')
 const mongoose = require('mongoose')
@@ -36,6 +37,7 @@ app.all("*",function(req,res,next){
 
 app.use('/', userRoutes)
 app.use('/pano', panoRoutes)
+app.use('/login', loginRoutes)
 
 app.listen(3000, () => {
   console.log('express start port 3000');

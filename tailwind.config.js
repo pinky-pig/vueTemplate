@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-07-03 12:06:55
+ * @LastEditors: wangwenbo
+ * @LastEditTime: 2021-07-03 16:40:46
+ * @FilePath: \vueTemplate\tailwind.config.js
+ */
 const Color = require('color')
 
 const PRIMARY_COLOR = '#4e466b'
@@ -36,5 +42,6 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/forms'),
   ]
 }

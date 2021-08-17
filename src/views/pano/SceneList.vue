@@ -1,8 +1,8 @@
 <!--
  * @Date: 2021-07-02 15:50:30
- * @LastEditors: wangwenbo
- * @LastEditTime: 2021-07-02 17:55:03
- * @FilePath: \vuetemplate\src\views\pano\SceneList.vue
+ * @LastEditors: 王文博
+ * @LastEditTime: 2021-08-14 03:43:12
+ * @FilePath: \vueTemplate\src\views\pano\SceneList.vue
 -->
 <template>
   <div :class="$style.sceneList"
@@ -14,6 +14,11 @@
 </template>
 
 <script>
+// 自定义随即范围内随机数
+function rd(n,m){
+    var c = m-n+1;
+    return Math.floor(Math.random() * c + n);
+}
 export default {
   props:{
     sceneList:{
@@ -29,7 +34,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.sceneList);
   },
   methods: {
     changeScene(scene){
