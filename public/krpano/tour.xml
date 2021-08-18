@@ -2,7 +2,7 @@
 
 	<!-- <include url="skin/vtourskin.xml" /> -->
 
-  <include url="pano_pos.xml" />
+  <!-- <include url="pano_pos.xml" /> -->
 	<events keep="true" name="showpos" onviewchange="show_pos()" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->

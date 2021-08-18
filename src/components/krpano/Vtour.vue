@@ -1,16 +1,11 @@
 <!--
  * @Date: 2021-06-30 16:41:47
  * @LastEditors: wangwenbo
-<<<<<<< HEAD
  * @LastEditTime: 2021-07-04 00:14:10
  * @FilePath: \vueTemplate\src\components\krpano\Vtour.vue
-=======
- * @LastEditTime: 2021-07-05 16:18:07
- * @FilePath: \vuetemplate\src\components\krpano\Vtour.vue
->>>>>>> 3d50f26081d3d05fb2b9e306768561f5a1d6125c
 -->
 <template>
-  <div id="pano" class=" w-full h-full">
+  <div id="pano" class="pano" style="width:100%;height:100%">
     <slot></slot>
   </div>
 </template>
