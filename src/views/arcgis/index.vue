@@ -388,7 +388,6 @@ export default {
 
             this.mapView.popup.watch("selectedFeature", function(graphic) {
             if (graphic) {
-              debugger
                 // initPano('pano','/krpano/tour.xml')
                 function loadScript (src) {
                   return new Promise(function (resolve, reject) {
@@ -423,8 +422,6 @@ export default {
                 el.text = `embedpano({swf:"/krpano/tour.swf", xml:"/krpano/tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
                 // let panoDom = document.getElementById(`pano`)
                 // panoDom.appendChild(el)
-debugger
-
                 function getMapContainer(){
                   let mapContainer = document.getElementsByClassName("pano")
                   if (mapContainer.length === 0 ) {
