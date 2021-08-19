@@ -25,13 +25,15 @@ function loadScript (src) {
 }
 const krpanoScriptUrl = '/krpano/krpano.js'
 
-loadScript(krpanoScriptUrl).then(() => window.embedpano)
 
 export function initPano (elementName, xml) {
-  var el = document.createElement('script')
-  el.type = 'text/javascript'
-  el.async = true
-  el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${xml}", target:"${elementName}", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
-  let panoDom = document.getElementById(`${elementName}`)
-  panoDom.appendChild(el)
+  loadScript(krpanoScriptUrl).then(() => {
+    window.embedpano
+    var el = document.createElement('script')
+    el.type = 'text/javascript'
+    el.async = true
+    el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${xml}", target:"${elementName}", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
+    let panoDom = document.getElementById(`${elementName}`)
+    panoDom.appendChild(el)
+  })
 }
