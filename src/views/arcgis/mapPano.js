@@ -25,15 +25,13 @@ function loadScript (src) {
 }
 const krpanoScriptUrl = '/krpano/krpano.js'
 
+loadScript(krpanoScriptUrl).then(() => window.embedpano)
 
-const initPano = function (elementName, xml) {
-  debugger
-  loadScript(krpanoScriptUrl).then(() => window.embedpano)
+export function initPano (elementName, xml) {
   var el = document.createElement('script')
   el.type = 'text/javascript'
   el.async = true
-  el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${xml}", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
+  el.text = `embedpano({swf:"/krpano/tour.swf", xml:"${xml}", target:"${elementName}", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
   let panoDom = document.getElementById(`${elementName}`)
   panoDom.appendChild(el)
 }
-export default initPano

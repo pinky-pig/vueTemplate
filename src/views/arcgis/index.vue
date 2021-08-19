@@ -322,20 +322,20 @@ export default {
             this.mapView.ui.remove("attribution"); //清楚底部powered by ESRI
 
             // 向地图添加书签
-            const bookmarks = new Bookmarks({
-              view: this.mapView,
-              bookmarks: this.bookmarks_list,
-              editingEnabled: true,
-              bookmarkCreationOptions: {
-                takeScreenshot: true,
-                captureViewpoint: false,
-                screenshotSettings: {
-                  width: 100,
-                  height: 100
-                }
-              }
-            });
-            this.mapView.ui.add(bookmarks, "top-right");
+            // const bookmarks = new Bookmarks({
+            //   view: this.mapView,
+            //   bookmarks: this.bookmarks_list,
+            //   editingEnabled: true,
+            //   bookmarkCreationOptions: {
+            //     takeScreenshot: true,
+            //     captureViewpoint: false,
+            //     screenshotSettings: {
+            //       width: 100,
+            //       height: 100
+            //     }
+            //   }
+            // });
+            // this.mapView.ui.add(bookmarks, "top-right");
 
             // 添加素描绘制工具条
             this.sketchLayer = new GraphicsLayer();
@@ -385,64 +385,26 @@ export default {
             this.initFeatureLayer();
 
 
-
+            // 监听地图弹窗打开的触发事件
             this.mapView.popup.watch("selectedFeature", function(graphic) {
-            if (graphic) {
-                // initPano('pano','/krpano/tour.xml')
-                function loadScript (src) {
-                  return new Promise(function (resolve, reject) {
-                    let shouldAppend = false
-                    let el = document.querySelector('script[src="' + src + '"]')
-                    if (!el) {
-                      el = document.createElement('script')
-                      el.type = 'text/javascript'
-                      el.async = true
-                      el.src = src
-                      shouldAppend = true
-                    }
-                    else if (el.hasAttribute('data-loaded')) {
-                      resolve(el)
-                      return
-                    }
-                    el.addEventListener('error', reject)
-                    el.addEventListener('abort', reject)
-                    el.addEventListener('load', function loadScriptHandler() {
-                      el.setAttribute('data-loaded', true)
-                      resolve(el)
-                    })
-                    if (shouldAppend) document.head.appendChild(el)
-                  })
-                }
-                const krpanoScriptUrl = '/krpano/krpano.js'
-
-                loadScript(krpanoScriptUrl).then(() => window.embedpano)
-                var el = document.createElement('script')
-                el.type = 'text/javascript'
-                el.async = true
-                el.text = `embedpano({swf:"/krpano/tour.swf", xml:"/krpano/tour.xml", target:"pano", html5:"auto", mobilescale:1.0, passQueryParameters:true});`
-                // let panoDom = document.getElementById(`pano`)
-                // panoDom.appendChild(el)
-                function getMapContainer(){
+              if (graphic) {
+                // 定义的一个获取弹窗内的DOM元素的方法。
+                // 当弹窗加载出来，给其中需要挂载krpano的元素设一个id，用于target
+                const getMapContainer = () => {
                   let mapContainer = document.getElementsByClassName("pano")
                   if (mapContainer.length === 0 ) {
                     return setTimeout(()=>{
                       getMapContainer()
                     },500)
                   }else{
-                    console.log(window.embedpano);
                     let panoDom = mapContainer[0]
                     panoDom.id = 'pano'
-                    panoDom.appendChild(el)
+                    initPano('pano','/krpano/tour.xml')
                   }
                 }
                 getMapContainer()
-
-
-
-
-            }
-          });
-
+              }
+            });
 
 
           }
